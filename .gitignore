@@ -1,0 +1,25 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Env files
+.env
+.env.*
+
+# Logs
+*.log
+logs/
+
+# Model and pipeline files
+*.pkl
+*.joblib
+*.keras
+
+# PyCharm files
+.idea/
