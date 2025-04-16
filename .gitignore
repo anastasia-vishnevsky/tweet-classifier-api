@@ -26,3 +26,6 @@ logs/
 
 # PyCharm files
 .idea/
+
+# Test cache
+.pytest_cache/

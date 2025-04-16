@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  tweet-api:
+    container_name: tweet-api-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn src.app:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m pytest tests/
+    depends_on:
+      - tweet-api

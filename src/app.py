@@ -46,3 +46,4 @@ def predict(tweet: Tweet):
         "gpt_model_prediction": gpt_prediction,
         "keras_model_prediction": keras_prediction
     }
+

@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
@@ -7,9 +8,20 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import f1_score, accuracy_score
+
+# Import pipeline creator
 from src.utils.pipeline import create_pipeline
 
-def train_model(csv_path="data/train.csv"):
+# Define base directories
+SRC_DIR = Path(__file__).resolve().parent.parent
+MODELS_DIR = SRC_DIR / "models"
+DATA_DIR = SRC_DIR.parent / "data"
+
+MODEL_PATH = MODELS_DIR / "final_model.keras"
+PIPELINE_PATH = MODELS_DIR / "final_pipeline.pkl"
+CSV_PATH = DATA_DIR / "train.csv"
+
+def train_model(csv_path=CSV_PATH):
     # Load data
     df = pd.read_csv(csv_path)
     df = df[["text", "target"]]
@@ -66,9 +78,9 @@ def train_model(csv_path="data/train.csv"):
     print(f"Accuracy: {accuracy:.4f}")
     print(f"F1 Score: {f1:.4f}")
 
-    # Save
-    model.save("src/models/final_model.keras")
-    joblib.dump(pipeline, "src/models/final_pipeline.pkl")
+    # Save model and pipeline
+    model.save(MODEL_PATH)
+    joblib.dump(pipeline, PIPELINE_PATH)
 
     return {"f1": f1, "accuracy": accuracy, "message": "Model trained and saved successfully."}
 
